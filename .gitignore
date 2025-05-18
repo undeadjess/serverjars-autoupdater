@@ -1,0 +1,24 @@
+# Compiled class files
+build/
+*.class
+
+# Jar output
+server.jar
+
+# Logs
+*.log
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# IDEs/editors
+.idea/
+.vscode/
+*.iml
+
+# Backup files
+*~
+
+# i hate macos
+*.DS_Store
