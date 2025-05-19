@@ -22,3 +22,6 @@ Thumbs.db
 
 # i hate macos
 *.DS_Store
+
+# .properties config file
+serverjars.properties
