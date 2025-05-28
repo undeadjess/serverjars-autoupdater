@@ -141,21 +141,21 @@ public class Main {
             try {
                 configFile.createNewFile();
                 System.out.println("Config file created: " + filePath);
+
+                Properties properties = new Properties();
+                properties.setProperty("type", "");
+                properties.setProperty("server", "");
+                properties.setProperty("version", "");
+                properties.setProperty("build", "");
+                properties.setProperty("serverjar", "");
+
+                try (OutputStream output = new FileOutputStream(filePath)) {
+                    properties.store(output, null);
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        // write empty properties to config file
-        Properties properties = new Properties();
-        try (OutputStream output = new FileOutputStream(filePath)) {
-            properties.setProperty("type", "");
-            properties.setProperty("server", "");
-            properties.setProperty("version", "");
-            properties.setProperty("build", "");
-            properties.setProperty("serverjar", "");
-            properties.store(output, null);
-        } catch (IOException io) {
-            io.printStackTrace();
         }
     }
 
