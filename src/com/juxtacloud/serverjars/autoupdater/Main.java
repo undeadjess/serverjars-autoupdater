@@ -15,7 +15,7 @@ public class Main {
         Main main = new Main();
         main.initializeConfig(configFilePath);
 
-        System.out.println("---------------------------------------------------");
+        System.out.println("\n---------------------------------------------------");
         System.out.println("             ServerJars AutoUpdater");
         System.out.println("    Built with love by Jessica S. and Juxtacloud");
         System.out.println("---------------------------------------------------\n");
@@ -30,6 +30,7 @@ public class Main {
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Enter the type you want to use: ");
                 type = scanner.nextLine();
+                System.out.println("");
                 main.writeConfig("type", type, configFilePath);
             } else {
                 System.out.println("Failed to fetch types from API.");
@@ -47,6 +48,7 @@ public class Main {
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Enter the server you want to use: ");
                 server = scanner.nextLine();
+                System.out.println("");
                 main.writeConfig("server", server, configFilePath);
             } else {
                 System.out.println("Failed to fetch servers from API.");
@@ -64,6 +66,7 @@ public class Main {
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Enter the version you want to use: ");
                 version = scanner.nextLine();
+                System.out.println("");
                 main.writeConfig("version", version, configFilePath);
             } else {
                 System.out.println("Failed to fetch versions from API.");
@@ -80,6 +83,7 @@ public class Main {
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Enter the build you want to use: ");
                 build = scanner.nextLine();
+                System.out.println("");
                 main.writeConfig("build", build, configFilePath);
             } else {
                 System.out.println("Failed to fetch builds from API.");
@@ -92,6 +96,8 @@ public class Main {
         System.out.println("Server: " + server);
         System.out.println("Version: " + version);
         System.out.println("Build: " + build);
+        System.out.println("---------------------------------------------------");
+        System.out.println("");
         System.out.println("fetching from API...");
         String downloadURL = main.getDownloadURL(type, server, version, build);
 
@@ -105,8 +111,8 @@ public class Main {
                         .build();
                 HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
                 InputStream inputStream = response.body();
-                FileOutputStream outputStream = new FileOutputStream(server + "-server.jar");
-                main.writeConfig("serverjar", server + "-server.jar", configFilePath);
+                FileOutputStream outputStream = new FileOutputStream(type + "-" + server + "-" +  version + "-" +  build + ".jar");
+                main.writeConfig("serverjar", type + "-" + server + "-" +  version + "-" +  build + ".jar", configFilePath);
                 byte[] buffer = new byte[1024];
                 int bytesRead;
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
@@ -121,8 +127,9 @@ public class Main {
         } else {
             System.out.println("Failed to fetch download URL from API.");
         }
-        System.out.println("---------------------------------------------------");
+        System.out.println("");
         System.out.println("running server...");
+        System.out.println("");
         // run server
         try {
             ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", readConfig("serverjar", configFilePath));
